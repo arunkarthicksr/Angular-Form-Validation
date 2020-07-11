@@ -1,0 +1,130 @@
+<hello name="{{ name }}"></hello>
+<p>
+  Start editing to see some magic happen :)
+</p>
+
+<form [formGroup]="addressForm">       
+
+    <div class="form-group" formArrayName="address">            
+
+        <div class="alert-style" *ngIf="showAlert">
+
+            <div class="alert">
+
+                <div class="icon" ></div>
+
+                <div class="alert-text-wrapper">                  
+
+                  <div>
+
+                    <div class="errors-list">
+
+                      <div class="error-info" *ngFor="let group of addressArray.controls; let  i = index;">  <h4 *ngIf="((group.get('streetAddress').touched || submitted ) && group.get('streetAddress').errors?.required) || ((group.get('city').touched || submitted ) && group.get('city').errors?.required )">Address {{i+1}}</h4>                      
+
+                         <div 
+
+                              *ngIf="(group.get('streetAddress').touched || submitted ) && group.get('streetAddress').errors?.required ">
+
+                              <a 
+
+                              (click)="triggerFocus($event, 'streetAddress'+ i)"  
+
+                              id="{{'streetAddressLink'+ i}}"
+
+                              href="javascript:void(0)">Street Address </a>: Required
+
+                          </div>
+
+                          <div 
+
+                              *ngIf="(group.get('city').touched || submitted ) && group.get('city').errors?.required ">
+
+                              <a  
+
+                              (click)="triggerFocus($event,'city'+ i )" 
+
+                              id="{{'cityLink'+ i}}"
+
+                              href="javascript:void(0)">City </a> : Required
+
+                          </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+              </div>
+
+        </div>              
+
+        <div class="" *ngFor="let group of addressArray.controls; let  i = index;">
+
+            <hr *ngIf="i>0">
+
+            <div>
+
+                <h4>Address {{i+1}} </h4>                
+
+                <br><br>
+
+            </div>          
+
+            <div [formGroupName]="i">
+
+                <div class="form-group">
+
+                    <label [attr.for]="'streetAddress'+ i">Street</label>
+
+                    <input type="text"
+
+                           id="{{'streetAddress'+ i}}"
+
+                           class="form-control"
+
+                           formControlName="streetAddress"                  
+
+                           placeholder="Enter Street Adddress">                           
+
+                </div>                
+
+                <div *ngIf="(group.get('streetAddress').touched || submitted ) && group.get('streetAddress').errors?.required ">Please Enter StreetAddress
+
+                </div>                  
+
+                <div class="form-group" >
+
+                    <label [attr.for]="'city'+ i">City</label>
+
+                    <input type="text"
+
+                           id="{{'city'+ i}}"
+
+                           class="form-control" 
+
+                           formControlName="city"
+
+                           placeholder="Enter City" required>
+
+                <div *ngIf="(group.get('city').touched || submitted ) && group.get('city').errors?.required ">Please Enter city
+
+               </div>
+
+                </div>  
+
+            </div><br>
+
+        </div>        
+
+    </div>
+
+    <br>
+
+    <button (click)="addAddress()">Add New Address</button><br><br>      
+
+    <button (click)="onSubmit()">Submit</button>   
+
+</form>  
